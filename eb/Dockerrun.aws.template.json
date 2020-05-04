@@ -1,0 +1,14 @@
+{
+    "AWSEBDockerrunVersion": "1",
+    "Image": {
+      "Name": "registry.gitlab.com/ems-test-harness/cds-dos:{{tag}}",
+      "Update": "true"
+    },
+    "Ports": [
+      {
+        "ContainerPort": "8085",
+        "HostPort": "8085"
+      }
+    ]
+  }
+  

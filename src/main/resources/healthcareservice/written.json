@@ -1,0 +1,52 @@
+{
+    "id": 2,
+    "endpoints": [{
+        "id": 1,
+        "address": "http://emstestharness-ems-care-advice.eu-west-2.elasticbeanstalk.com/report"
+    }],
+    "active": true,
+    "name": "Written",
+    "appointmentRequired": false,
+    "serviceTypes": ["Music Therapy", "Delivered Meals (Meals On Wheels)"],
+    "serviceSpecialties": ["General Medicine"],
+    "address": {
+        "line1": "123 Back Street",
+        "city": "Manchester",
+        "postcode": "MS1 1BB",
+        "country": "United Kingdom"
+    },
+    "description": "Post call information",
+    "extraDetails": "Points to EMS test harness Post Call deployment",
+    "contacts": [
+        {
+            "type": "phone",
+            "value": "098765456787",
+            "usage": "home"
+        },
+        {
+            "type": "email",
+            "value": "some@email.com",
+            "usage": "work"
+        }
+    ],
+    "provisions": ["Fees apply", "Discounts Available"],
+    "availableTimes": [
+        {
+            "day": ["mon", "wed", "fri"],
+            "startTime": "09:30:00",
+            "endTime": "16:30:00"
+        },
+        {
+            "day": ["sat"],
+            "startTime": "08:00:00",
+            "endTime": "17:00:00"
+        }
+    ],
+    "unavailableTimes": [
+        {
+            "start": "24-12-2019 00:00:00",
+            "end": "26-12-2019 00:00:00",
+            "description": "Christmas break"
+        }
+    ]
+}

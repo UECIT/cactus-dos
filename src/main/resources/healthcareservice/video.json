@@ -1,0 +1,52 @@
+{
+    "id": 1,
+    "endpoints": [{
+        "id": 1,
+        "address": "http://localhost:5000/report"
+    }],
+    "active": true,
+    "name": "Video",
+    "appointmentRequired": true,
+    "serviceTypes": ["Food", "Music Therapy"],
+    "serviceSpecialties": ["Family Practice"],
+    "address": {
+        "line1": "123 Main Street",
+        "city": "Leeds",
+        "postcode": "LS1 1AA",
+        "country": "United Kingdom"
+    },
+    "description": "Post call information",
+    "extraDetails": "Points to local machines",
+    "contacts": [
+        {
+            "type": "phone",
+            "value": "098765456787",
+            "usage": "home"
+        },
+        {
+            "type": "email",
+            "value": "some@email.com",
+            "usage": "work"
+        }
+    ],
+    "provisions": ["Fees apply"],
+    "availableTimes": [
+        {
+            "day": ["mon", "wed", "fri"],
+            "startTime": "09:30:00",
+            "endTime": "16:30:00"
+        },
+        {
+            "day": ["sat"],
+            "startTime": "08:00:00",
+            "endTime": "17:00:00"
+        }
+    ],
+    "unavailableTimes": [
+        {
+            "start": "24-12-2019 00:00:00",
+            "end": "26-12-2019 00:00:00",
+            "description": "Christmas break"
+        }
+    ]
+}

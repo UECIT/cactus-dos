@@ -1,0 +1,712 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pathways DoS web service: v1.5 -->
+<wsdl:definitions xmlns:tns="https://nww.pathwaysdos.nhs.uk/app/api/webservices"
+                  xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="https://nww.pathwaysdos.nhs.uk/app/api/webservices"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+    <wsdl:types>
+        <s:schema elementFormDefault="qualified" targetNamespace="https://nww.pathwaysdos.nhs.uk/app/api/webservices">
+            <s:element name="ServiceDetailsById">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="userInfo" type="tns:UserInfo" />
+                        <s:element minOccurs="1" maxOccurs="1" name="serviceId" type="s:string">
+                            <s:annotation>
+                                <s:documentation>The identifier for the required service.</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="ServiceDetailsByIdResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="services" type="tns:ArrayOfServices" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfServices">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="service" nillable="true" type="tns:ServiceDetail" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ServiceDetail">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="id" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The service identifier for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="odsCode" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The value of the ODS code field for the service. NOTE: Values in this field are not automatically validated, and therefore cannot be considered guarranteed ODS codes at present.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="serviceEndpoints" type="tns:ArrayOfServiceEndpoints">
+                        <s:annotation>
+                            <s:documentation>A list of service endpoints for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="serviceVersion" type="s:string" />
+            <s:complexType name="UserInfo">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="username" type="s:string" />
+                    <s:element minOccurs="1" maxOccurs="1" name="password" type="s:string" />
+
+                </s:sequence>
+            </s:complexType>
+            <s:element name="GetHospitalScores">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="userInfo" type="tns:UserInfo" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:element name="GetHospitalScoresResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="0" maxOccurs="1" name="GetHospitalScoresResult" type="tns:ArrayOfHospitalScores" />
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfHospitalScores">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="Hospital" nillable="true" type="tns:Hospital">
+                        <s:annotation>
+                            <s:documentation>A list of Emergency Departments with pressure scores.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Hospital">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="hospital_name" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The name of the Emergency Department.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="total_score" type="s:int">
+                        <s:annotation>
+                            <s:documentation>The pressure score for the Emergency Department.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="note" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The latest note about the Emergency Department capacity.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="update_date" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The time at which the capacity was last updated.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:element name="CheckCapacitySummary">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="userInfo" type="tns:UserInfo" />
+                        <s:element minOccurs="1" maxOccurs="1" name="c" type="tns:Case">
+                            <s:annotation>
+                                <s:documentation>The case details representing the clincial scenario for the search.</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="Case">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="1" name="caseRef" type="s:string">
+                        <s:annotation>
+                            <s:documentation>A globally unique identifier for the case record representing the clinical scenario on the consumer side.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="caseId" type="s:string">
+                        <s:annotation>
+                            <s:documentation>A 'friendly' identifier for the case record representing the clinical scenario on the consumer side.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="postcode" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The postcode of the location from which to perform the search (e.g. the patient's current location).</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="surgery" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The ODS code of the patient's registered surgery. You can use 'UNK' if not known.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="age" type="s:short">
+                        <s:annotation>
+                            <s:documentation>The age value for the patient. Range of accepted values will differ according to the AgeFormat that is used.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="ageFormat" type="tns:AgeFormatType">
+                        <s:annotation>
+                            <s:documentation>The type / format of the age value that is being provided (e.g. Years, Days, AgeGroup)</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="disposition" type="s:int">
+                        <s:annotation>
+                            <s:documentation>A code representing the clinical disposition of the clinical scenario. List of valid Disposition codes is maintained separately and will change periodically.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="symptomGroup" type="s:int">
+                        <s:annotation>
+                            <s:documentation>A numerical code indicating the Symptom Group to be used for the search. List of valid Symptom Group codes is maintained separately and will change periodically.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="symptomDiscriminatorList" type="tns:ArrayOfInt">
+                        <s:annotation>
+                            <s:documentation>A list of numerical codes indicating the Symptom Discriminators to be used for the search. List of valid Symptom Discriminator codes is maintained separately and will change periodically. NOTE: Although this is a list, only one list item is currently expected in the request.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="searchDistance" type="s:int">
+                        <s:annotation>
+                            <s:documentation>The maximum distance within which to return services from the specified postcode (measured as a straight line). Value in kilometres (KM). Only required to override the default search distances.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="forceSearchDistance" type="s:boolean">
+                        <s:annotation>
+                            <s:documentation>A boolean indicating that the supplied searchDistance value should be used for the search over all other sources for the search distance value (e.g. will override the server-side default search distance for the postcode).</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="gender" type="tns:GenderType">
+                        <s:annotation>
+                            <s:documentation>The stated gender of the patient.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="searchDateTime" type="s:string">
+                        <s:annotation>
+                            <s:documentation>An optional timestamp which can be used to "Perform the search as if it is X timestamp in the future". Should be used for scenario testing / modelling. Should be omitted for searches relating to real clinical scenarios. </s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:simpleType name="GenderType">
+                <s:restriction base="s:string">
+                    <s:enumeration value="M" />
+                    <s:enumeration value="F" />
+                    <s:enumeration value="I" />
+                </s:restriction>
+            </s:simpleType>
+            <s:simpleType name="AgeFormatType">
+                <s:restriction base="s:string">
+                    <s:enumeration value="Days" />
+                    <s:enumeration value="Months" />
+                    <s:enumeration value="Years" />
+                    <s:enumeration value="AgeGroup" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="ArrayOfInt">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+                </s:sequence>
+            </s:complexType>
+            <s:element name="CheckCapacitySummaryResponse">
+                <s:complexType>
+                    <s:sequence>
+                        <s:element minOccurs="1" maxOccurs="1" name="TransactionId" type="s:string">
+                            <s:annotation>
+                                <s:documentation>A globally unique identifier representing the search transaction. Generated by the server at time of request.</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element minOccurs="1" maxOccurs="1" name="RequestedAtDateTime" type="s:string">
+                            <s:annotation>
+                                <s:documentation>Timestamp of when the search request transaction was completed (i.e. time now).</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element minOccurs="1" maxOccurs="1" name="SearchDateTime" type="s:string">
+                            <s:annotation>
+                                <s:documentation>Timestamp used for the purpose of the search scenario (i.e. The search results are returned as if current time is this timestamp).</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element minOccurs="0" maxOccurs="1" name="CalculatedAgeInDays" type="s:float">
+                            <s:annotation>
+                                <s:documentation>The patient's age used for the purpose of the search scenario (in days).</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element minOccurs="1" maxOccurs="1" name="SearchDistance" type="s:int">
+                            <s:annotation>
+                                <s:documentation>The search distance used for the purpose of the search scenario. Value in kilometres (KM).</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element minOccurs="1" maxOccurs="1" name="SearchDistanceUsedSource" type="tns:DistanceSource">
+                            <s:annotation>
+                                <s:documentation>The source used to populate the search distance used in the search scenario.</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                        <s:element minOccurs="1" maxOccurs="1" name="CheckCapacitySummaryResult" type="tns:ArrayOfServiceCareSummaryDestination">
+                            <s:annotation>
+                                <s:documentation>An ordered, filtered list of service results.</s:documentation>
+                            </s:annotation>
+                        </s:element>
+                    </s:sequence>
+                </s:complexType>
+            </s:element>
+            <s:complexType name="ArrayOfServiceCareSummaryDestination">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="serviceCareSummaryDestination" nillable="true"
+                               type="tns:ServiceCareSummaryDestination" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ServiceCareSummaryDestination">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int">
+                        <s:annotation>
+                            <s:documentation>The identifier for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="capacity" type="tns:Capacity">
+                        <s:annotation>
+                            <s:documentation>The current capacity of the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The profiled name of the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="publicName" type="s:string">
+                        <s:annotation>
+                            <s:documentation>An alternative public-friendly / familiar name for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="contactDetails" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Contact details for the service (e.g. a public telephone number).</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="address" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The address of the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="postcode" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The postcode of the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="northings" type="s:int">
+                        <s:annotation>
+                            <s:documentation>The northings value for the service, based on the service postcode.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="eastings" type="s:int">
+                        <s:annotation>
+                            <s:documentation>The eastings value for the service, based on the service postcode.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="url" type="s:string">
+                        <s:annotation>
+                            <s:documentation>A URL for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="serviceType" type="tns:ServiceType">
+                        <s:annotation>
+                            <s:documentation>The type of the service (as per a maintained list of possible service types).</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="odsCode" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The value of the ODS code field for the service. NOTE: Values in this field are not automatically validated, and therefore cannot be considered guarranteed ODS codes at present</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="nonPublicTelephoneNo" type="s:string">
+                        <s:annotation>
+                            <s:documentation>A telephone number for the service for use by health and care professionals only - should not be displayed or shared publicly.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="fax" type="s:string">
+                        <s:annotation>
+                            <s:documentation>A fax number for the service - should not be assumed safe to display or share publicly.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="publicFacingInformation" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Free text notes about using the service. These notes can be displayed / shared publicly.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="distance" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The distance between the specified search location and the service (straight line). Value in miles (mi).</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="referralInformation" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Free text notes about referring to the service - for health and care professional use only. These notes should not be displayed / shared publicly.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="openAllHours" type="s:boolean">
+                        <s:annotation>
+                            <s:documentation>A boolean representing whether the service is always open - always open indicated by a 'true' value.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="capacityAttributes" type="tns:ArrayOfCapacityAttributes">
+                        <s:annotation>
+                            <s:documentation>A list of attributes describing the capacity of the service. A list of valid capacity attributes is maintained separately - new attribute items can be introduced outside of the schema. Absence of an attribute in the list signifies that it is not populated for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="serviceEndpoints" type="tns:ArrayOfServiceEndpoints">
+                        <s:annotation>
+                            <s:documentation>A list of endpoints for the service which can be used programmatically by a consuming system.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="rotaSessions" type="tns:ArrayOfServiceCareItemRotaSession">
+                        <s:annotation>
+                            <s:documentation>A list of rota sessions specifying the opening times for the service. This list represents a regular weekly pattern.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="openTimeSpecifiedSessions" type="tns:ArrayOfOpenTimeSpecified">
+                        <s:annotation>
+                            <s:documentation>A list of exceptional opening time sessions, which may override those defined in the regular rota sessions list.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="attributes" type="tns:ArrayOfAttributes">
+                        <s:annotation>
+                            <s:documentation>A list of attributes relating to the service. A list of valid service attributes is maintained separately - new attribute items can be introduced outside of the schema. Absence of an attribute in the list signifies that it is not populated for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="serviceAgeRange" type="tns:ArrayOfServiceAgeRanges">
+                        <s:annotation>
+                            <s:documentation>The list of age ranges supported by the service. A patient's age must fall within a specified age range to be eligible to receive care from the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfServiceEndpoints">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="endpoint" nillable="true"
+                               type="tns:Endpoint" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Endpoint">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="endpointOrder" type="s:int">
+                        <s:annotation>
+                            <s:documentation>The order of the endpoint within the list when sort order is applied using this field.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="transport" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The type of endpoint / transport (e.g. http, itk, email).</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="format" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The format of the interaction for this endpoint (e.g. CDA, HTML, FHIR)</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="interaction" type="s:string">
+                        <s:annotation>
+                            <s:documentation>An interaction identifier to denote the type of business interaction that the endpoint supports.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="businessScenario" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The business scenario in which this endpoint should be used. "Primary" denotes an interaction resulting in action / direct care, "Copy" denotes an interaction for information purposes.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="address" type="s:string" >
+                        <s:annotation>
+                            <s:documentation>The URI of some kind to be used for addressing the endpoint.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="compression" type="s:string">
+                        <s:annotation>
+                            <s:documentation>A field to denote whether the payload should be compressed for this endpoint (not used for all endpoint types).</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="comment" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Free text notes that may be used to support the use of the endpoint (not used for all endpoint types). May be displayed directly to an end user.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfAttributes">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="attribute" nillable="true"
+                               type="tns:Attribute" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="Attribute">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="dataType" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Value indicating the data type for the value of this attribute. List of valid dataTypes maintained separately.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="name" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The name of the attribute. List of valid attribute names mainatined separately.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="description" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Description of the attribute - may be displayed directly to an end user.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="value" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The value of the attribute. Valid values will depend on the attribute dataType.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfServiceAgeRanges">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="ageRange" nillable="true"
+                               type="tns:AgeRange" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="AgeRange">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="daysFrom" type="s:float">
+                        <s:annotation>
+                            <s:documentation>The lower bound of the age range - in days.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="daysTo" type="s:float">
+                        <s:annotation>
+                            <s:documentation>The upper bound of the age range - in days.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfCapacityAttributes">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="unbounded" name="capacityAttribute" nillable="true"
+                               type="tns:CapacityAttribute">
+                        <s:annotation>
+                            <s:documentation>A list of capacity attributes for the service.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="CapacityAttribute">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="name" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The name of the attribute. List of valid attribute names mainatined separately.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="description" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Description of the attribute - may be displayed directly to an end user.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="value" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The value of the attribute. Valid values will depend on the attribute dataType.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ServiceType">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="id" type="s:long">
+                        <s:annotation>
+                            <s:documentation>The identifier for the service type.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="name" type="s:string">
+                        <s:annotation>
+                            <s:documentation>The name of the service type.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfServiceCareDestination">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="serviceCareDestination" nillable="true" type="tns:ServiceCareDestination" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ServiceCareDestination">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+                    <s:element minOccurs="1" maxOccurs="1" name="capacity" type="tns:Capacity" />
+                </s:sequence>
+            </s:complexType>
+            <s:simpleType name="Capacity">
+                <s:restriction base="s:string">
+                    <s:enumeration value="High" />
+                    <s:enumeration value="Low" />
+                    <s:enumeration value="None" />
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="ArrayOfServiceCareItemRotaSession">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="serviceCareItemRotaSession" nillable="true"
+                               type="tns:ServiceCareItemRotaSession" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ServiceCareItemRotaSession">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="startDayOfWeek" type="tns:DayOfWeek">
+                        <s:annotation>
+                            <s:documentation>The day of the week on which this session starts.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="startTime" type="tns:TimeOfDay">
+                        <s:annotation>
+                            <s:documentation>The time of day at which this session starts.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="1" maxOccurs="1" name="endDayOfWeek" type="tns:DayOfWeek">
+                        <s:annotation>
+                            <s:documentation>The day of the week on which this session ends.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="endTime" type="tns:TimeOfDay">
+                        <s:annotation>
+                            <s:documentation>The time of day at which this session ends.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                    <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string">
+                        <s:annotation>
+                            <s:documentation>Whether this session represents that the service is Open or Closed.</s:documentation>
+                        </s:annotation>
+                    </s:element>
+                </s:sequence>
+            </s:complexType>
+            <s:simpleType name="DayOfWeek">
+                <s:restriction base="s:string">
+                    <s:enumeration value="Sunday" />
+                    <s:enumeration value="Monday" />
+                    <s:enumeration value="Tuesday" />
+                    <s:enumeration value="Wednesday" />
+                    <s:enumeration value="Thursday" />
+                    <s:enumeration value="Friday" />
+                    <s:enumeration value="Saturday" />
+                    <s:enumeration value="Bankholiday" />
+                </s:restriction>
+            </s:simpleType>
+            <s:simpleType name="DistanceSource">
+                <s:restriction base="s:string">
+                    <s:enumeration value="Postcode">
+                        <s:annotation>
+                            <s:documentation>Preset value used for the specific postcode (e.g. "ME1 4AB").</s:documentation>
+                        </s:annotation>
+                    </s:enumeration>
+                    <s:enumeration value="District">
+                        <s:annotation>
+                            <s:documentation>Preset value used for the postcode district (e.g. "ME1").</s:documentation>
+                        </s:annotation>
+                    </s:enumeration>
+                    <s:enumeration value="Sector">
+                        <s:annotation>
+                            <s:documentation>Preset value used for the postcode sector (e.g. "ME1 4").</s:documentation>
+                        </s:annotation>
+                    </s:enumeration>
+                    <s:enumeration value="Web Service">
+                        <s:annotation>
+                            <s:documentation>Value used from search request.</s:documentation>
+                        </s:annotation>
+                    </s:enumeration>
+                    <s:enumeration value="National">
+                        <s:annotation>
+                            <s:documentation>National default value used.</s:documentation>
+                        </s:annotation>
+                    </s:enumeration>
+                    <s:enumeration value="Override">
+                        <s:annotation>
+                            <s:documentation>When search distance is forced.</s:documentation>
+                        </s:annotation>
+                    </s:enumeration>
+                </s:restriction>
+            </s:simpleType>
+            <s:complexType name="TimeOfDay">
+                <s:sequence>
+                    <s:element minOccurs="1" maxOccurs="1" name="hours" type="s:short" />
+                    <s:element minOccurs="1" maxOccurs="1" name="minutes" type="s:short" />
+                </s:sequence>
+            </s:complexType>
+            <s:complexType name="ArrayOfOpenTimeSpecified">
+                <s:sequence>
+                    <s:element minOccurs="0" maxOccurs="unbounded" name="openTimeSpecified" nillable="true"
+                               type="s:string" />
+                </s:sequence>
+            </s:complexType>
+        </s:schema>
+    </wsdl:types>
+    <wsdl:message name="CheckCapacitySummarySoapIn">
+        <wsdl:part name="parameters" element="tns:CheckCapacitySummary" />
+    </wsdl:message>
+    <wsdl:message name="CheckCapacitySummarySoapOut">
+        <wsdl:part name="parameters" element="tns:CheckCapacitySummaryResponse" />
+    </wsdl:message>
+    <wsdl:message name="ServiceVersionHeader">
+        <wsdl:part name="ServiceVersion" element="tns:serviceVersion" />
+    </wsdl:message>
+    <wsdl:message name="ServiceDetailsByIdRequest">
+        <wsdl:part element="tns:ServiceDetailsById" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="ServiceDetailsByIdResponse">
+        <wsdl:part element="tns:ServiceDetailsByIdResponse" name="parameters" />
+    </wsdl:message>
+    <wsdl:message name="GetHospitalScoresSoapIn">
+        <wsdl:part name="parameters" element="tns:GetHospitalScores" />
+    </wsdl:message>
+    <wsdl:message name="GetHospitalScoresSoapOut">
+        <wsdl:part name="parameters" element="tns:GetHospitalScoresResponse" />
+    </wsdl:message>
+    <wsdl:portType name="PathWayServiceSoap">
+        <wsdl:operation name="ServiceDetailsById">
+            <wsdl:documentation>Returns a list of service endpoint details for a specified single service.
+            </wsdl:documentation>
+            <wsdl:input message="tns:ServiceDetailsByIdRequest" />
+            <wsdl:output message="tns:ServiceDetailsByIdResponse" />
+        </wsdl:operation>
+        <wsdl:operation name="GetHospitalScores">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns a list of Emergency Departments with OHA (pressure) scores.</wsdl:documentation>
+            <wsdl:input message="tns:GetHospitalScoresSoapIn" />
+            <wsdl:output message="tns:GetHospitalScoresSoapOut" />
+        </wsdl:operation>
+        <wsdl:operation name="CheckCapacitySummary">
+            <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Returns an ordered, filtered list of services based on the specified search criteria (representing patient need).</wsdl:documentation>
+            <wsdl:input message="tns:CheckCapacitySummarySoapIn" />
+            <wsdl:output message="tns:CheckCapacitySummarySoapOut" />
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="PathWayServiceSoap12" type="tns:PathWayServiceSoap">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="ServiceDetailsById">
+            <soap12:operation soapAction="https://nww.pathwaysdos.nhs.uk/app/api/webservices/ServiceDetailsById" />
+            <wsdl:input>
+                <soap12:header message="tns:ServiceVersionHeader" part="ServiceVersion" use="literal" />
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="GetHospitalScores">
+            <soap12:operation soapAction="https://nww.pathwaysdos.nhs.uk/app/api/webservices/GetHospitalScores" style="document" />
+            <wsdl:input>
+                <soap12:header message="tns:ServiceVersionHeader" part="ServiceVersion" use="literal" />
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="CheckCapacitySummary">
+            <soap12:operation soapAction="https://nww.pathwaysdos.nhs.uk/app/api/webservices/CheckCapacitySummary" style="document" />
+            <wsdl:input>
+                <soap12:header message="tns:ServiceVersionHeader" part="ServiceVersion" use="literal" />
+                <soap12:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="PathWayService">
+        <wsdl:port name="PathWayServiceSoap12" binding="tns:PathWayServiceSoap12">
+            <soap12:address location="https://nww.pathwaysdos.nhs.uk/app/api/webservices" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

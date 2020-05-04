@@ -1,0 +1,162 @@
+{
+  "resourceType": "Parameters",
+  "parameter": [
+    {
+      "name": "referralRequest",
+      "resource": {
+        "resourceType": "ReferralRequest",
+        "status": "active",
+        "intent": "plan",
+        "priority": "routine",
+        "subject": {
+          "reference": "http://localhost:8083/fhir/Patient/2"
+        },
+        "context": {
+          "reference": "http://localhost:8083/fhir/Encounter/376"
+        },
+        "occurrencePeriod": {
+          "start": "2020-02-04T16:38:22+00:00",
+          "end": "2020-02-04T16:46:22+00:00"
+        },
+        "reasonCode": [
+          {
+            "coding": [
+              {
+                "system": "http://snomed.info/sct",
+                "code": "transfusion&intervention",
+                "display": "Blood transfusion. Surgical intervention X-RAY/CT"
+              }
+            ],
+            "text": "transfusion&intervention"
+          }
+        ],
+        "reasonReference": [
+          {
+            "reference": "http://localhost:8084/fhir/Condition/725"
+          }
+        ],
+        "description": "Call 999"
+      }
+    },
+    {
+      "name": "patient",
+      "resource": 
+        {
+          "resourceType": "Patient",
+          "id": "1",
+          "meta": {
+              "profile": [
+                  "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1"
+              ]
+          },
+          "extension": [
+              {
+                  "url": "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NominatedPharmacy-1",
+                  "valueReference": {
+                      "reference": "Organization/erp"
+                  }
+              }
+          ],
+          "identifier": [
+              {
+                  "extension": [
+                      {
+                          "url": "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSNumberVerificationStatus-1",
+                          "valueCodeableConcept": {
+                              "coding": [
+                                  {
+                                      "system": "https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-NHSNumberVerificationStatus-1",
+                                      "code": "01",
+                                      "display": "Number present and verified"
+                                  }
+                              ]
+                          }
+                      }
+                  ],
+                  "system": "https://fhir.nhs.uk/Id/nhs-number",
+                  "value": "9476719915"
+              }
+          ],
+          "name": [
+              {
+                  "use": "official",
+                  "family": "Bloggs",
+                  "given": [
+                      "Joanne"
+                  ],
+                  "prefix": [
+                      "Miss"
+                  ]
+              }
+          ],
+          "telecom": [
+              {
+                  "system": "phone",
+                  "value": "020 123 456",
+                  "use": "home",
+                  "rank": 1,
+                  "period": {
+                      "start": "2020-02-07T16:36:25+00:00",
+                      "end": "2020-02-07T16:36:25+00:00"
+                  }
+              },
+              {
+                  "system": "phone",
+                  "value": "0700 123 456",
+                  "use": "mobile",
+                  "rank": 2,
+                  "period": {
+                      "start": "2020-02-07T16:36:25+00:00",
+                      "end": "2020-02-07T16:36:25+00:00"
+                  }
+              }
+          ],
+          "gender": "female",
+          "birthDate": "2011-09-07",
+          "address": [
+              {
+                  "use": "home",
+                  "type": "both",
+                  "line": [
+                      "Flat 3",
+                      "123 A Road"
+                  ],
+                  "city": "London",
+                  "postalCode": "W1 123",
+                  "period": {
+                      "start": "2020-02-07T16:36:25+00:00",
+                      "end": "2020-02-07T16:36:25+00:00"
+                  }
+              }
+          ],
+          "communication": [
+              {
+                  "language": {
+                      "coding": [
+                          {
+                              "system": "https://fhir.hl7.org.uk/STU3/CodeSystem/CareConnect-HumanLanguage-1",
+                              "code": "en",
+                              "display": "English"
+                          }
+                      ],
+                      "text": "English"
+                  }
+              }
+          ],
+          "generalPractitioner": [
+              {
+                  "reference": "Practitioner/gp"
+              }
+          ]
+      }
+    },
+    {
+      "name": "searchDistance",
+      "valueInteger": 4
+    },
+    {
+      "name": "requestId",
+      "valueId": "http://localhost:8083/fhir/Encounter/1"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+    "id": 6,
+    "endpoints": [{
+        "id": 1,
+        "address": "https://iucdspilot.uk/ems-send-reports"
+    }],
+    "active": true,
+    "name": "Email",
+    "appointmentRequired": true,
+    "serviceTypes": ["Food", "Delivered Meals (Meals On Wheels)"],
+    "serviceSpecialties": ["General Medicine", "Family Practice"],
+    "address": {
+        "line1": "123 Second Street",
+        "city": "London",
+        "postcode": "WX1 1CC",
+        "country": "United Kingdom"
+    },
+    "description": "Email to SGH",
+    "extraDetails": "Sends an email to St Georges Hospital with the encounter report",
+    "contacts": [
+        {
+            "type": "phone",
+            "value": "098765456787",
+            "usage": "home"
+        },
+        {
+            "type": "email",
+            "value": "some@email.com",
+            "usage": "work"
+        }
+    ],
+    "provisions": ["Free"],
+    "availableTimes": [
+        {
+            "day": ["mon", "wed", "fri"],
+            "startTime": "09:30:00",
+            "endTime": "16:30:00"
+        },
+        {
+            "day": ["sat"],
+            "startTime": "08:00:00",
+            "endTime": "17:00:00"
+        }
+    ],
+    "unavailableTimes": [
+        {
+            "start": "24-12-2019 00:00:00",
+            "end": "26-12-2019 00:00:00",
+            "description": "Christmas break"
+        }
+    ]
+}
