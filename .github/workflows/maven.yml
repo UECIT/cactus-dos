@@ -46,7 +46,7 @@ jobs:
 
   invoke-deployment:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && (github.ref == 'develop' || github.ref == 'master')
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master')
     needs: publish-app
     steps:
       - name: Invoke deployment hook
