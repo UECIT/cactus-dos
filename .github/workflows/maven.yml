@@ -11,6 +11,14 @@ on:
     branches: [ develop ]
 
 jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print event name
+        run: echo "${{ github.event_name }}"
+      - name: Print branch name
+        run: echo "${{ github.ref }}"
+
   build:
     runs-on: ubuntu-latest
     steps:
