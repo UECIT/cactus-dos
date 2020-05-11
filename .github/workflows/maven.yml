@@ -24,7 +24,7 @@ jobs:
 
   publish-app:
     runs-on: ubuntu-latest
-    #needs: build
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - name: Push to GitHub Packages
@@ -42,7 +42,7 @@ jobs:
     needs: publish-app
     steps:
       - name: Invoke deployment hook
-      uses: distributhor/workflow-webhook@v1
-      env:
-        webhook_url: ${{ secrets.WEBHOOK_URL }}
-        webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+        uses: distributhor/workflow-webhook@v1
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
