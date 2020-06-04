@@ -1,5 +1,6 @@
 package uk.nhs.cdss.service;
 
+import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
@@ -31,13 +32,16 @@ public class UCDOSService {
   private final DosRestResponseTransformer dosRestResponseTransformer;
   private final CheckSummaryResponseRegistry checkSummaryResponseRegistry;
   private final DosRestResponseRegistry dosRestResponseRegistry;
-  private final IParser fhirParser;
+  private final FhirContext fhirContext;
 
   public void invokeUCDOS(InputBundle inputBundle) {
 
+    IParser fhirParser = fhirContext.newJsonParser();
+
     ServiceTypeSearch serviceTypeSearch = serviceTypeSearchTransformer.transform(inputBundle);
     ClinicalTermSearch clinicalTermSearch = clinicalTermSearchTransformer.transform(inputBundle);
-    CheckCapacitySummary checkCapacitySearch = checkCapacitySearchTransformer.transform(inputBundle);
+    CheckCapacitySummary checkCapacitySearch = checkCapacitySearchTransformer
+        .transform(inputBundle);
 
     log.info("ServiceType Search: {}", serviceTypeSearch);
     log.info("ClinicalTerm Search: {}", clinicalTermSearch);
