@@ -1,20 +1,19 @@
 package uk.nhs.cdss.audit.config;
 
-import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+
 @Configuration
 @RequiredArgsConstructor
 public class RestClientConfig {
 
-    private final RestTemplateBuilder restTemplateBuilder;
-
     @Bean
-    public RestTemplate restTemplate() {
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder.build();
     }
 
