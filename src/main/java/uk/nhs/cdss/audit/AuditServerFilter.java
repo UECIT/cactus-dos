@@ -62,7 +62,6 @@ public class AuditServerFilter extends OncePerRequestFilter {
               HttpResponse.from(responseWrapper, content));
 
       auditSender.sendAudit(auditSession);
-      responseWrapper.copyBodyToResponse();
     }
   }
 }
