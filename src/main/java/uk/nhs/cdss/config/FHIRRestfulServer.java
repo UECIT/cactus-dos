@@ -6,9 +6,8 @@ import ca.uhn.fhir.rest.server.RestfulServer;
 import ca.uhn.fhir.rest.server.interceptor.CorsInterceptor;
 import java.util.Arrays;
 import javax.annotation.PostConstruct;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -18,14 +17,14 @@ import uk.nhs.cdss.resourceProviders.HealthcareServiceProvider;
 
 @WebServlet(urlPatterns = { "/fhir/*" }, displayName = "FHIR Server")
 @Configuration
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class FHIRRestfulServer extends RestfulServer {
 
 	private static final long serialVersionUID = 1L;
 
-	private HealthcareServiceProvider healthcareServiceProvider;
-	private CheckServicesProvider checkServicesProvider;
-	private FhirContext fhirContext;
+	private final HealthcareServiceProvider healthcareServiceProvider;
+	private final CheckServicesProvider checkServicesProvider;
+	private final FhirContext fhirContext;
 
 	/*
 	 * HAPI FHIR Restful Server (non-Javadoc)
@@ -33,7 +32,7 @@ public class FHIRRestfulServer extends RestfulServer {
 	 * @see ca.uhn.fhir.rest.server.RestfulServer#initialize()
 	 */
 	@Override
-	protected void initialize() throws ServletException {
+	protected void initialize() {
 
 		setFhirContext(fhirContext);
 		setETagSupport(ETagSupportEnum.ENABLED);
