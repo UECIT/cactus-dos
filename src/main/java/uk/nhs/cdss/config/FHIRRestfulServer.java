@@ -9,6 +9,7 @@ import java.util.Arrays;
 import javax.annotation.PostConstruct;
 import javax.servlet.annotation.WebServlet;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
