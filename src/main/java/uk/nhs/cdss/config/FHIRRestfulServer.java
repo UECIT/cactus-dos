@@ -32,7 +32,7 @@ public class FHIRRestfulServer extends RestfulServer {
   private final FhirContext fhirContext;
 
   @Override
-  protected void initialize() {
+	protected void initialize() {
 
     setFhirContext(fhirContext);
     setETagSupport(ETagSupportEnum.ENABLED);

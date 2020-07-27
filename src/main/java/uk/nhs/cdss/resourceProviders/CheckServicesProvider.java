@@ -1,5 +1,8 @@
 package uk.nhs.cdss.resourceProviders;
 
+import static uk.nhs.cactus.common.audit.model.AuditProperties.INTERACTION_ID;
+import static uk.nhs.cactus.common.audit.model.AuditProperties.OPERATION_TYPE;
+
 import ca.uhn.fhir.rest.annotation.Operation;
 import ca.uhn.fhir.rest.annotation.OperationParam;
 import ca.uhn.fhir.rest.param.NumberParam;
@@ -15,7 +18,8 @@ import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.dstu3.model.ReferralRequest;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.springframework.stereotype.Component;
-import uk.nhs.cdss.audit.AuditService;
+import uk.nhs.cactus.common.audit.AuditService;
+import uk.nhs.cactus.common.audit.model.OperationType;
 import uk.nhs.cdss.builder.ParametersBuilder;
 import uk.nhs.cdss.model.InputBundle;
 import uk.nhs.cdss.service.HealthcareServiceService;
@@ -49,7 +53,8 @@ public class CheckServicesProvider {
       @OperationParam(name = REGISTERED_GP, max = 1) Organization registeredGp,
       @OperationParam(name = INPUT_PARAMETERS, max = 1) Parameters inputParameters
   ) {
-    auditService.addAuditProperty(REQUEST_ID, requestId.getValue());
+    auditService.addAuditProperty(OPERATION_TYPE, OperationType.CHECK_SERVICES.getName());
+    auditService.addAuditProperty(INTERACTION_ID, requestId.getValue());
 
     String errorMessage = "%s is required";
     Preconditions.checkNotNull(referralRequest, errorMessage, "referralRequest");
