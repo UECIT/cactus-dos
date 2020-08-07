@@ -1,9 +1,10 @@
 package uk.nhs.cdss.service;
 
+import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.dstu3.model.Parameters;
 import org.springframework.stereotype.Service;
@@ -21,23 +22,26 @@ import uk.nhs.cdss.transform.ucdos.out.ServiceTypeSearchTransformer;
 
 @Slf4j
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UCDOSService {
 
-  private ServiceTypeSearchTransformer serviceTypeSearchTransformer;
-  private ClinicalTermSearchTransformer clinicalTermSearchTransformer;
-  private CheckCapacitySearchTransformer checkCapacitySearchTransformer;
-  private CheckCapacityResponseTransformer checkCapacityResponseTransformer;
-  private DosRestResponseTransformer dosRestResponseTransformer;
-  private CheckSummaryResponseRegistry checkSummaryResponseRegistry;
-  private DosRestResponseRegistry dosRestResponseRegistry;
-  private IParser fhirParser;
+  private final ServiceTypeSearchTransformer serviceTypeSearchTransformer;
+  private final ClinicalTermSearchTransformer clinicalTermSearchTransformer;
+  private final CheckCapacitySearchTransformer checkCapacitySearchTransformer;
+  private final CheckCapacityResponseTransformer checkCapacityResponseTransformer;
+  private final DosRestResponseTransformer dosRestResponseTransformer;
+  private final CheckSummaryResponseRegistry checkSummaryResponseRegistry;
+  private final DosRestResponseRegistry dosRestResponseRegistry;
+  private final FhirContext fhirContext;
 
   public void invokeUCDOS(InputBundle inputBundle) {
 
+    IParser fhirParser = fhirContext.newJsonParser();
+
     ServiceTypeSearch serviceTypeSearch = serviceTypeSearchTransformer.transform(inputBundle);
     ClinicalTermSearch clinicalTermSearch = clinicalTermSearchTransformer.transform(inputBundle);
-    CheckCapacitySummary checkCapacitySearch = checkCapacitySearchTransformer.transform(inputBundle);
+    CheckCapacitySummary checkCapacitySearch = checkCapacitySearchTransformer
+        .transform(inputBundle);
 
     log.info("ServiceType Search: {}", serviceTypeSearch);
     log.info("ClinicalTerm Search: {}", clinicalTermSearch);
